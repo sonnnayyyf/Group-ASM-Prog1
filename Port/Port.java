@@ -109,7 +109,7 @@ public class Port {
     }
 
 
-        public double calculateDistance(Port otherPort) {
+    public double calculateDistance(Port otherPort) {
         double earthRadius = 6371;
         double lat1 = Math.toRadians(this.latitude);
         double lon1 = Math.toRadians(this.longitude);
