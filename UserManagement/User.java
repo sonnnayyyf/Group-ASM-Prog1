@@ -1,19 +1,18 @@
 package UserManagement;
 
-public enum Role {
-    Admin,
-    PortManager
+public enum UserRole {
+    ADMIN, PORT_MANAGER
 }
 
 public class User {
     private String userId;
     private String username;
     private String password;
-    private Role role;
+    private UserRole role;
 
     public User() {}
 
-    public User(String userId, String username, String password, Role role) {
+    public User(String userId, String username, String password, UserRole role) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -44,18 +43,22 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public void logout() {
+        System.out.println("Logged out successfully.");
     }
 
     public boolean login(String username, String password) {
         String storedUsername = "sampleUsername";
         String storedPassword = "samplePassword";
-        Role storedRole = Role.Admin;
+        UserRole storedRole = UserRole.ADMIN;
 
         if (this.username != null) {
             System.out.println("Already logged in.");
@@ -63,7 +66,7 @@ public class User {
         }
 
         if (username.equals(storedUsername) && password.equals(storedPassword)) {
-            this.userId = generateUserId();
+            this.userId = "sampleUserId";
             this.username = storedUsername;
             this.password = storedPassword;
             this.role = storedRole;
@@ -73,18 +76,5 @@ public class User {
             System.out.println("Login failed.");
             return false;
         }
-    }
-
-    private String generateUserId() {
-        return "USER" + System.currentTimeMillis();
-    }
-
-
-    public void logout() {
-        this.userId = null;
-        this.username = null;
-        this.password = null;
-        this.role = null;
-        System.out.println("Logged out successfully.");
     }
 }
