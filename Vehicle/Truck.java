@@ -3,6 +3,13 @@ package Vehicle;
 public class Truck {
     private TruckType type;
 
+    public enum TruckType
+    {
+        BASIC,
+        REEFER,
+        TANKER
+    }
+
     public Truck(String vehicleID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, TruckType type)
     {
         super();
@@ -20,10 +27,8 @@ public class Truck {
     }
 
     // Enum definition for TruckType inside the Truck class
-    public enum TruckType
+    public boolean canUtilizePort(Port destinationPort)
     {
-        BASIC,
-        REEFER,
-        TANKER
+
     }
 }
