@@ -1,8 +1,8 @@
 package UserManagement;
 
 public enum Role {
-    ADMIN,
-    PORT_MANAGER
+    Admin,
+    PortManager
 }
 
 public class User {
@@ -53,10 +53,9 @@ public class User {
     }
 
     public boolean login(String username, String password) {
-        // Normally, you would get these details from a database.
         String storedUsername = "sampleUsername";
-        String storedPassword = "samplePassword"; // This should actually be a securely hashed password.
-        Role storedRole = Role.ADMIN;
+        String storedPassword = "samplePassword";
+        Role storedRole = Role.Admin;
 
         if (this.username != null) {
             System.out.println("Already logged in.");
@@ -64,9 +63,9 @@ public class User {
         }
 
         if (username.equals(storedUsername) && password.equals(storedPassword)) {
-            this.userId = generateUserId(); // Assume generateUserId() is another method that generates a unique ID.
+            this.userId = generateUserId();
             this.username = storedUsername;
-            this.password = storedPassword; // In a real-world scenario, you would never store the password in plain text.
+            this.password = storedPassword;
             this.role = storedRole;
             System.out.println("Logged in successfully.");
             return true;
@@ -77,7 +76,6 @@ public class User {
     }
 
     private String generateUserId() {
-        // Generate a unique user ID. In a real application, you would probably fetch this from a database.
         return "USER" + System.currentTimeMillis();
     }
 
