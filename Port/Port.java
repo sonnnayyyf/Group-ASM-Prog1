@@ -22,7 +22,7 @@ public class Port {
         this.latitude = latitude;
         this.longitude = longitude;
         this.storingCapacity = storingCapacity;
-        this.landingAbility = landingAbility;
+        this.landingAbility = false;
         this.numberOfContainer = 0;
         this.numberOfVehicles = 0;
         this.trafficRecords = new ArrayList<Trip>();
@@ -93,6 +93,9 @@ public class Port {
 
 
     public void addContainers(int amount) {
+        if(numberOfContainer + amount > storingCapacity){
+            System.out.println("The port is currently unable to receive more container.");
+        }
         numberOfContainer += amount;
     }
 
@@ -109,19 +112,22 @@ public class Port {
     }
 
 
-        public double calculateDistance(Port otherPort) {
-        double earthRadius = 6371;
-        double lat1 = Math.toRadians(this.latitude);
-        double lon1 = Math.toRadians(this.longitude);
-        double lat2 = Math.toRadians(otherPort.latitude);
-        double lon2 = Math.toRadians(otherPort.longitude);
+    public double calculateDistance(Port otherPort) {
+    double earthRadius = 6371;
+    double lat1 = Math.toRadians(this.latitude);
+    double lon1 = Math.toRadians(this.longitude);
+    double lat2 = Math.toRadians(otherPort.latitude);
+    double lon2 = Math.toRadians(otherPort.longitude);
 
-        double dlon = lon2 - lon1;
-        double dlat = lat2 - lat1;
+    double dlon = lon2 - lon1;
+    double dlat = lat2 - lat1;
 
-        double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return earthRadius * c;
+    return earthRadius * c;
+    }
+    public void notExceedWeightLimit(double ContainerWeightToAdd){
+        return
     }
 }
