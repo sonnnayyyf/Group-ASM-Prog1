@@ -2,6 +2,7 @@ package Container;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 public class Container {
 
@@ -10,6 +11,12 @@ public class Container {
     private double weight;
     private ContainerType type;
     private Map<String, FuelRate> fuelConsumption;
+
+    public Container(String containerID, double weight, ContainerType type) {
+        this.containerID = containerID;
+        this.weight = weight;
+        this.type = type;
+    }
 
     // Getters and Setters
     public String getContainerID() {
@@ -52,4 +59,27 @@ public class Container {
         REFRIGERATED,
         LIQUID,
     }
+    public double calculateFuelConsumption(String vehicleType, double distanceKm) {
+        // Define fuel consumption rates per container type and vehicle type
+        Map<String, Map<String, Double>> fuelConsumptionRates = new HashMap<>();
+        fuelConsumptionRates.put("Dry storage", createFuelConsumptionMap(3.5, 4.6));
+        fuelConsumptionRates.put("Open top", createFuelConsumptionMap(2.8, 3.2));
+        fuelConsumptionRates.put("Open side", createFuelConsumptionMap(2.7, 3.2));
+        fuelConsumptionRates.put("Refrigerated", createFuelConsumptionMap(4.5, 5.4));
+        fuelConsumptionRates.put("Liquid", createFuelConsumptionMap(4.8, 5.3));
+        if (fuelConsumptionRates.containsKey(containerType) &&
+                fuelConsumptionRates.get(containerType).containsKey(vehicleType)) {
+            double rate = fuelConsumptionRates.get(containerType).get(vehicleType);
+            return rate * weight * distanceKm;
+        } else {
+            return -1.0; // Return -1 to indicate invalid input
+        }
+    }
+    private Map<String, Double> createFuelConsumptionMap(double shipRate, double truckRate) {
+        Map<String, Double> map = new HashMap<>();
+        map.put("Ship", shipRate);
+        map.put("Truck", truckRate);
+        return map;
+    }
+
 }

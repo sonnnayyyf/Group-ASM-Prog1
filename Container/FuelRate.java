@@ -6,6 +6,11 @@ public class FuelRate {
     private double rateByShip;
     private double rateByTruck;
 
+    public FuelRate(double rateByShip, double rateByTruck){
+        this.rateByShip = rateByShip;
+        this.rateByTruck = rateByTruck;
+    }
+
     // Getters and Setters
     public double getRateByShip() {
         return rateByShip;
