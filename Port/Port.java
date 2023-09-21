@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.*;
+
+import Container.Container;
 import Trip.Trip;
 
 public class Port {
@@ -93,14 +95,18 @@ public class Port {
     }
 
 
-    public void addContainers(int amount) {
-        numberOfContainer += amount;
+    public void addContainers(ArrayList<Container> containerList) {
+        for (Container container: containerList) {
+            numberOfContainer += 1;
+            storingCapacity -= container.getWeight();
+        }
     }
-
-    public void removeContainers(int amount) {
-        numberOfContainer -= amount;
+    public void removeContainers(ArrayList<Container> containerList) {
+        for (Container container: containerList) {
+            numberOfContainer -= 1;
+            storingCapacity += container.getWeight();
+        }
     }
-
     public void addVehicles(int amount) {
         numberOfVehicles += amount;
     }
@@ -108,7 +114,6 @@ public class Port {
     public void removeVehicles(int amount) {
         numberOfVehicles -= amount;
     }
-
 
     public double calculateDistance(Port otherPort) {
         double earthRadius = 6371;
