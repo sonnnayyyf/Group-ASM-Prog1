@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.*;
+import Trip.Trip;
 
 public class Port {
     private String portID;
@@ -109,7 +110,7 @@ public class Port {
     }
 
 
-        public double calculateDistance(Port otherPort) {
+    public double calculateDistance(Port otherPort) {
         double earthRadius = 6371;
         double lat1 = Math.toRadians(this.latitude);
         double lon1 = Math.toRadians(this.longitude);

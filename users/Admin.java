@@ -33,7 +33,7 @@ public class Admin extends User {
     // This method will display all the customers' information that existed in customers' file
     public void getAllUsersInfo() throws FileNotFoundException {
         ArrayList<String[]> user = new ArrayList<>(); // Create an arraylist to contain all users' information
-        Scanner fileScanner = new Scanner(new File("./src/dataFile/users.txt"));
+        Scanner fileScanner = new Scanner(new File("./dataFile/users.txt"));
 
         while (fileScanner.hasNext()) {
             String[] data; // Create an array to store one user's information
@@ -82,10 +82,10 @@ public class Admin extends User {
 
     // This method is used to create new user and add to the users.txt file.
     public void createNewUsers(String name, String email, String address, String phone, String username, String password, int port) throws IOException {
-        Path path = Paths.get("./src/dataFile/users.txt");
+        Path path = Paths.get("dataFile/users.txt");
         int id = (int) Files.lines(path).count();
 
-        try (PrintWriter pw = new PrintWriter(new FileWriter("./src/dataFile/users.txt", true))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter("dataFile/users.txt", true))) {
             pw.println("u" + id + "," + name + "," + email + "," + address + "," + phone + "," + username + "," + password + "," + port + "," + "Manager");
         }
         System.out.println("Updated successful");
@@ -93,7 +93,7 @@ public class Admin extends User {
 
 //    This method will check if a given username already exists in the users.txt file
     public boolean isUsernameUnique(String username) throws IOException {
-        Path path = Paths.get("./src/dataFile/users.txt");
+        Path path = Paths.get("dataFile/users.txt");
         return Files.lines(path).noneMatch(line -> line.split(",")[5].equals(username));
     }
 
@@ -128,7 +128,7 @@ public class Admin extends User {
 
     // This method allow admin to delete a category that had existed in categories' file
     public void deleteUser(String filepath, String delCategory) throws IOException {
-        ArrayList<String[]> categoryList = ReadDataFromTXTFile.readAllLines("./src/dataFile/users.txt");
+        ArrayList<String[]> categoryList = ReadDataFromTXTFile.readAllLines("dataFile/users.txt");
         ArrayList<String[]> newCategoryList = new ArrayList<>();
 
 
@@ -138,7 +138,7 @@ public class Admin extends User {
                 newCategoryList.add(strings); // Add all categories except the deleted category
             }
         }
-        PrintWriter pw = new PrintWriter("./src/dataFile/users.txt");
+        PrintWriter pw = new PrintWriter("dataFile/users.txt");
 
         pw.write(""); // The file would erase all the data in categories' file
         pw.close();

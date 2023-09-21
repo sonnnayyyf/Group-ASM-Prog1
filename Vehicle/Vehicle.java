@@ -2,17 +2,25 @@ package Vehicle;
 
 import java.util.List;
 import java.util.Map;
+import Port.Port;
+import Container.Container;
 
-public class Vehicle {
+
+
+
+public abstract class Vehicle {
+    // Class attributes
     private String vehicleID;
     private String name;
-    private double currentFuel;
-    private double carryingCapacity;
+    public double currentFuel;
+    public double carryingCapacity;
     private double fuelCapacity;
-    private Port currentPort;
+    public Port currentPort;
     private int numberOfContainers;
     private Map<String, Integer> totalNumContainerByType;
-    private List<Container> containerDetails;
+    public List<Container> containerDetails;
+
+    //Getters and Setters
     public String getVehicleID() {
         return vehicleID;
     }
@@ -28,6 +36,7 @@ public class Vehicle {
     public double getCurrentFuel() {
         return currentFuel;
     }
+
     public void setCurrentFuel(double currentFuel) {
         this.currentFuel = currentFuel;
     }
@@ -78,4 +87,41 @@ public class Vehicle {
         this.carryingCapacity = carryingCapacity;
         this.fuelCapacity = fuelCapacity;
     }
+
+    public boolean canLoadContainer(Container container) {
+        double totalWeightWithContainer = calculateTotalWeightWithContainer(container);
+        return totalWeightWithContainer <= carryingCapacity;
+    }
+
+    private double calculateTotalWeightWithContainer(Container container) {
+        // Implement logic to calculate the total weight with the new container
+        // For example, you might sum the weights of all containers currently loaded
+        double totalWeight = 0.0;
+        for (Container loadedContainer : containerDetails) {
+            totalWeight += loadedContainer.getWeight();
+        }
+        return totalWeight + container.getWeight();
+    }
+
+
+    // Load a Container
+    public void loadContainer(Container container) {
+        if (canLoadContainer(container)) {
+            containerDetails.add(container);
+            numberOfContainers++;
+        } else {
+            // Handle the case where the container cannot be loaded
+        }
+    }
+
+    // Unload a Container
+    public void unloadContainer(Container container) {
+        if (containerDetails.remove(container)) {
+            numberOfContainers--;
+        } else {
+            // Handle the case where the container is not found for unloading
+        }
+    }
+
 }
+

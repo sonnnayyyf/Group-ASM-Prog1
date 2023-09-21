@@ -118,7 +118,7 @@ public class AdminMenu {
                                 System.out.println("Please enter a valid port number.");
                                 portInt = -1;  // Setting to an invalid value to continue the loop
                             } catch (IOException e) {
-                                System.out.println("An error occurred. Please try again.");
+                                System.out.println(e.getMessage());
                                 portInt = -1;  // Setting to an invalid value to continue the loop
                             }
                         } while (portInt == -1);  // If portInt is -1, it means there was an error and we continue the loop

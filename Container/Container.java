@@ -1,20 +1,20 @@
 package Container;
 
-import java.util.List;
+import Port.Port;
+
 import java.util.Map;
 import java.util.HashMap;
 
 public class Container {
-
     // Class attributes
     private String containerID;
-    private double weight;
+    public static double weight;
     private ContainerType type;
     private Map<String, FuelRate> fuelConsumption;
 
     public Container(String containerID, double weight, ContainerType type) {
         this.containerID = containerID;
-        this.weight = weight;
+        Container.weight = weight;
         this.type = type;
     }
 
@@ -32,7 +32,7 @@ public class Container {
     }
 
     public void setWeight(double weight) {
-        this.weight = weight;
+        Container.weight = weight;
     }
 
     public ContainerType getType() {
@@ -59,6 +59,7 @@ public class Container {
         REFRIGERATED,
         LIQUID,
     }
+
     public double calculateFuelConsumption(String vehicleType, double distanceKm) {
         // Define fuel consumption rates per container type and vehicle type
         Map<String, Map<String, Double>> fuelConsumptionRates = new HashMap<>();
@@ -67,15 +68,16 @@ public class Container {
         fuelConsumptionRates.put("Open side", createFuelConsumptionMap(2.7, 3.2));
         fuelConsumptionRates.put("Refrigerated", createFuelConsumptionMap(4.5, 5.4));
         fuelConsumptionRates.put("Liquid", createFuelConsumptionMap(4.8, 5.3));
-        if (fuelConsumptionRates.containsKey(containerType) &&
-                fuelConsumptionRates.get(containerType).containsKey(vehicleType)) {
-            double rate = fuelConsumptionRates.get(containerType).get(vehicleType);
+        if (fuelConsumptionRates.containsKey(type) &&
+                fuelConsumptionRates.get(type).containsKey(vehicleType)) {
+            double rate = fuelConsumptionRates.get(type).get(vehicleType);
             return rate * weight * distanceKm;
         } else {
             return -1.0; // Return -1 to indicate invalid input
         }
     }
-    private Map<String, Double> createFuelConsumptionMap(double shipRate, double truckRate) {
+
+    private static Map<String, Double> createFuelConsumptionMap(double shipRate, double truckRate) {
         Map<String, Double> map = new HashMap<>();
         map.put("Ship", shipRate);
         map.put("Truck", truckRate);

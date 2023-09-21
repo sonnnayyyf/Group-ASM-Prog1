@@ -16,11 +16,11 @@ public class User {
     private String phone;
     private String username;
     private String password;
-    private String port;
+    private int port;
     private String role;
 
     // Constructor
-    public User(String uID, String name, String email, String address, String phone, String userName, String password, String port, String role) {
+    public User(String uID, String name, String email, String address, String phone, String userName, String password, int port, String role) {
         this.uID = uID;
         this.name = name;
         this.email = email;
@@ -134,12 +134,12 @@ public class User {
     }
 
     // Getter method for port
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 
     // Setter method for port
-    public void setPort(String port) {
+    public void setPort(int port) {
         this.port = port;
     }
 
