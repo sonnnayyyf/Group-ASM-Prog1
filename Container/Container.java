@@ -8,13 +8,13 @@ import java.util.HashMap;
 public class Container {
     // Class attributes
     private String containerID;
-    public static double weight;
+    public double weight;
     private ContainerType type;
     private Map<String, FuelRate> fuelConsumption;
 
     public Container(String containerID, double weight, ContainerType type) {
         this.containerID = containerID;
-        Container.weight = weight;
+        this.weight = weight;
         this.type = type;
     }
 
@@ -32,7 +32,7 @@ public class Container {
     }
 
     public void setWeight(double weight) {
-        Container.weight = weight;
+        this.weight = weight;
     }
 
     public ContainerType getType() {

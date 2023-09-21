@@ -3,10 +3,12 @@ package Port;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 import javax.swing.*;
 
 import Container.Container;
 import Trip.Trip;
+import Trip.TripsManager;
 
 public class Port {
     private String portID;
@@ -15,9 +17,8 @@ public class Port {
     private double longitude;
     private double storingCapacity;
     private boolean landingAbility;
-    private int numberOfContainer;
+    private List<Container> listOfContainer = new ArrayList<Container>();
     private int numberOfVehicles;
-    private List<Trip> trafficRecords;
 
     public Port(String portID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility) {
         this.portID = portID;
@@ -26,9 +27,7 @@ public class Port {
         this.longitude = longitude;
         this.storingCapacity = storingCapacity;
         this.landingAbility = landingAbility;
-        this.numberOfContainer = 0;
         this.numberOfVehicles = 0;
-        this.trafficRecords = new ArrayList<Trip>();
     }
     public String getPortID() {
         return portID;
@@ -79,11 +78,14 @@ public class Port {
     }
 
     public int getNumberOfContainer() {
-        return numberOfContainer;
+        return listOfContainer.size();
+    }
+    public List<Container> getListOfContainer() {
+        return listOfContainer;
     }
 
-    public void setNumberOfContainer(int numberOfContainer) {
-        this.numberOfContainer = numberOfContainer;
+    public void setListOfContainer(List<Container> listOfContainer) {
+        this.listOfContainer = listOfContainer;
     }
 
     public int getNumberOfVehicles() {
@@ -95,18 +97,14 @@ public class Port {
     }
 
 
-    public void addContainers(ArrayList<Container> containerList) {
-        for (Container container: containerList) {
-            numberOfContainer += 1;
-            storingCapacity -= container.getWeight();
-        }
+    public void addContainers(ArrayList<Container> listOfContainer) {
+        this.listOfContainer.addAll(listOfContainer);
     }
-    public void removeContainers(ArrayList<Container> containerList) {
-        for (Container container: containerList) {
-            numberOfContainer -= 1;
-            storingCapacity += container.getWeight();
-        }
+
+    public void removeContainer(String containerID) {
+        this.listOfContainer.removeIf(container -> container.getContainerID().equals(containerID));
     }
+
     public void addVehicles(int amount) {
         numberOfVehicles += amount;
     }
@@ -115,6 +113,18 @@ public class Port {
         numberOfVehicles -= amount;
     }
 
+    public double getRemainingCapacity(){
+        double remainingCapacity = this.storingCapacity;
+        for (Container container:
+                this.listOfContainer) {
+            remainingCapacity -= container.getWeight();
+        }
+        return remainingCapacity;
+    }
+
+    public ArrayList<Trip> getTripHistory(){
+        return TripsManager.getInstance().getTripsOfPort(this.portID);
+    }
     public double calculateDistance(Port otherPort) {
         double earthRadius = 6371;
         double lat1 = Math.toRadians(this.latitude);
