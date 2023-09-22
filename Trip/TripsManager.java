@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class TripsManager {
     private static TripsManager instance;
-    private ArrayList<Trip> listOfTrips;
+    private ArrayList<Trip> listOfTrips = new ArrayList<Trip>();
     public static TripsManager getInstance(){
         if (instance == null) {
             instance = new TripsManager();

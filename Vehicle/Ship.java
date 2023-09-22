@@ -4,7 +4,7 @@ import Port.Port;
 import Container.Container;
 
 public class Ship extends Vehicle{
-    private Vehicle.Ship.ShipType type;
+    private ShipType type;
 
     // Enum definition for TruckType inside the Truck class
     public enum ShipType {
@@ -13,16 +13,16 @@ public class Ship extends Vehicle{
         TANKER
     }
 
-    public Ship(String vehicleID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, Vehicle.Ship.ShipType type) {
+    public Ship(String vehicleID, String name, double currentFuel, double carryingCapacity, double fuelCapacity, ShipType type) {
         super(vehicleID, name, currentFuel, carryingCapacity, fuelCapacity);
         this.type = type;
     }
 
-    public Vehicle.Ship.ShipType getType() {
+    public ShipType getType() {
         return type;
     }
 
-    public void setType(Vehicle.Ship.ShipType type) {
+    public void setType(ShipType type) {
         this.type = type;
     }
 

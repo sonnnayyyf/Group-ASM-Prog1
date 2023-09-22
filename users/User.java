@@ -7,7 +7,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.util.Base64;
 
-public class User {
+public abstract class User {
     // Attributes
     private String uID;
     private String name;
