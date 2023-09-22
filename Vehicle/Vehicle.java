@@ -1,7 +1,10 @@
 package Vehicle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import Port.Port;
 import Container.Container;
 
@@ -10,15 +13,15 @@ import Container.Container;
 
 public abstract class Vehicle {
     // Class attributes
-    private String vehicleID;
-    private String name;
-    public double currentFuel;
-    public double carryingCapacity;
-    private double fuelCapacity;
-    public Port currentPort;
-    private int numberOfContainers;
-    private Map<String, Integer> totalNumContainerByType;
-    public List<Container> containerDetails;
+    protected String vehicleID;
+    protected String name;
+    protected double currentFuel;
+    protected double carryingCapacity;
+    protected double fuelCapacity;
+    protected Port currentPort;
+    protected Map<String, Integer> totalNumContainerByType;
+
+    protected List<Container> containerList = new ArrayList<Container>();
 
     //Getters and Setters
     public String getVehicleID() {
@@ -58,25 +61,35 @@ public abstract class Vehicle {
     public void setCurrentPort(Port currentPort) {
         this.currentPort = currentPort;
     }
-    public int getNumberOfContainers() {
-        return numberOfContainers;
-    }
-    public void setNumberOfContainers(int numberOfContainers) {
-        this.numberOfContainers = numberOfContainers;
-    }
     public Map<String, Integer> getTotalNumContainerByType() {
         return totalNumContainerByType;
     }
     public void setTotalNumContainerByType(Map<String, Integer> totalNumContainerByType) {
         this.totalNumContainerByType = totalNumContainerByType;
     }
-    public List<Container> getContainerDetails() {
-        return containerDetails;
-    }
-    public void setContainerDetails(List<Container> containerDetails) {
-        this.containerDetails = containerDetails;
+    public List<Container> getContainerList() {
+        return containerList;
     }
 
+    public void setContainerList(List<Container> containerList) {
+        this.containerList = containerList;
+    }
+    public int getNumberOfContainers(){
+        return this.containerList.size();
+    }
+    public int getNumberOfContainersByType(Container.ContainerType type){
+        return this.containerList.stream().filter(container -> container.getType().equals(type)).collect(Collectors.toCollection(ArrayList::new)).size();
+    }
+    public abstract boolean loadContainer(Container container);
+
+    public void unloadContainer(String containerID){
+        this.containerList.removeIf(container -> container.getContainerID().equals(containerID));
+    }
+
+    public void refuel(){
+        this.currentFuel = this.fuelCapacity;
+    }
+    public abstract double calculateFuelConsumption(double distance);
     public Vehicle() {}
 
     public Vehicle(String vehicleID, String name, double currentFuel, double carryingCapacity, double fuelCapacity)
@@ -89,39 +102,15 @@ public abstract class Vehicle {
     }
 
     public boolean canLoadContainer(Container container) {
-        double totalWeightWithContainer = calculateTotalWeightWithContainer(container);
+        double totalWeightWithContainer = this.getTotalWeight()+container.getWeight();
         return totalWeightWithContainer <= carryingCapacity;
     }
 
-    private double calculateTotalWeightWithContainer(Container container) {
-        // Implement logic to calculate the total weight with the new container
-        // For example, you might sum the weights of all containers currently loaded
-        double totalWeight = 0.0;
-        for (Container loadedContainer : containerDetails) {
-            totalWeight += loadedContainer.getWeight();
-        }
-        return totalWeight + container.getWeight();
+    public double getTotalWeight() {
+        double totalWeight = this.containerList.stream()
+                .mapToDouble(container -> container.getWeight())
+                .sum();
+
+        return totalWeight;
     }
-
-
-    // Load a Container
-    public void loadContainer(Container container) {
-        if (canLoadContainer(container)) {
-            containerDetails.add(container);
-            numberOfContainers++;
-        } else {
-            // Handle the case where the container cannot be loaded
-        }
-    }
-
-    // Unload a Container
-    public void unloadContainer(Container container) {
-        if (containerDetails.remove(container)) {
-            numberOfContainers--;
-        } else {
-            // Handle the case where the container is not found for unloading
-        }
-    }
-
 }
-

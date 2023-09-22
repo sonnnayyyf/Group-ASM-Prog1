@@ -77,7 +77,7 @@ public class Port {
         this.landingAbility = landingAbility;
     }
 
-    public int getNumberOfContainer() {
+    public int getNumberOfContainers() {
         return listOfContainer.size();
     }
     public List<Container> getListOfContainer() {
@@ -95,8 +95,6 @@ public class Port {
     public void setNumberOfVehicles(int numberOfVehicles) {
         this.numberOfVehicles = numberOfVehicles;
     }
-
-
     public void addContainers(ArrayList<Container> listOfContainer) {
         this.listOfContainer.addAll(listOfContainer);
     }

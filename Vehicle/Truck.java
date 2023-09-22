@@ -6,8 +6,6 @@ import Container.Container;
 
 public class Truck extends Vehicle  {
     private TruckType type;
-    private Container container;
-
     // Enum definition for TruckType inside the Truck class
     public enum TruckType {
         BASIC,
@@ -28,14 +26,31 @@ public class Truck extends Vehicle  {
         this.type = type;
     }
 
+    @Override
+    public boolean loadContainer(Container container){
+        if (this.canLoadContainer(container)) {
+            if (this.type == TruckType.BASIC && (container.getType() == Container.ContainerType.DRY_STORAGE || container.getType() == Container.ContainerType.OPEN_TOP || container.getType() == Container.ContainerType.OPEN_SIDE)) {
+                this.containerList.add(container);
+                return true;
+            } else if (this.type == TruckType.REEFER && (container.getType() == Container.ContainerType.REFRIGERATED)) {
+                this.containerList.add(container);
+                return true;
+            } else if (this.type == TruckType.TANKER && (container.getType() == Container.ContainerType.LIQUID)) {
+                this.containerList.add(container);
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Determine if it Can Move to a Port
     public boolean canMoveToPort(Port departurePort, Port destinationPort) {
         // Check if the truck's fuel level is enough for the trip
         double requiredFuel = calculateFuelConsumption(departurePort.calculateDistance(destinationPort));
-        if (currentFuel > requiredFuel) {
+        if (this.currentFuel > requiredFuel) {
             if (destinationPort.isLandingAbility()) {
-                double totalWeightWithContainers = calculateTotalWeightWithContainers();
-                if (totalWeightWithContainers <= carryingCapacity) {
+                double totalWeightWithContainers = this.getTotalWeight();
+                if (totalWeightWithContainers <= this.carryingCapacity) {
                     // Both source and destination ports have the ability to receive trucks,
                     // and the truck has enough fuel and carrying capacity.
                     return true;
@@ -45,20 +60,12 @@ public class Truck extends Vehicle  {
         return false;
     }
 
-    public double calculateFuelConsumption (double distance)
-    {
-        return container.calculateFuelConsumption("Truck", distance);
-    }
+    @Override
+    public double calculateFuelConsumption(double distance) {
+        double totalFuelConsumption = this.containerList.stream()
+                .mapToDouble(container -> container.calculateFuelConsumption("Truck", distance))
+                .sum();
 
-    private double calculateTotalWeightWithContainers() {
-        // Implement logic to calculate the total weight of loaded containers
-        // Iterate through the containerDetails and sum their weights
-        double totalWeight = 0.0;
-        for (Container container : containerDetails) {
-            totalWeight += container.getWeight();
-        }
-        return totalWeight;
+        return totalFuelConsumption;
     }
 }
-
-
