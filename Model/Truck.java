@@ -10,8 +10,8 @@ public class Truck extends Vehicle  {
         TANKER
     }
 
-    public Truck(String vehicleID, String name, double carryingCapacity, double fuelCapacity, TruckType type) {
-        super(vehicleID, name, carryingCapacity, fuelCapacity);
+    public Truck(String vehicleID, String name, double carryingCapacity, double fuelCapacity, TruckType type, String currentPort) {
+        super(vehicleID, name, carryingCapacity, fuelCapacity, currentPort);
         this.type = type;
     }
 
@@ -41,16 +41,19 @@ public class Truck extends Vehicle  {
     }
 
     // Determine if it Can Move to a Port
+    @Override
     public boolean canMoveToPort(Port departurePort, Port destinationPort) {
-        // Check if the truck's fuel level is enough for the trip
-        double requiredFuel = calculateFuelConsumption(departurePort.calculateDistance(destinationPort));
-        if (this.currentFuel > requiredFuel) {
-            if (destinationPort.isLandingAbility()) {
-                double totalWeightWithContainers = this.getTotalWeight();
-                if (totalWeightWithContainers <= this.carryingCapacity) {
-                    // Both source and destination ports have the ability to receive trucks,
-                    // and the truck has enough fuel and carrying capacity.
-                    return true;
+        if (!departurePort.getPortID().equals(destinationPort.getPortID())) {
+            // Check if the truck's fuel level is enough for the trip
+            double requiredFuel = calculateFuelConsumption(departurePort.calculateDistance(destinationPort));
+            if (this.currentFuel > requiredFuel) {
+                if (destinationPort.isLandingAbility()) {
+                    double totalWeightWithContainers = this.getTotalWeight();
+                    if (totalWeightWithContainers <= this.carryingCapacity) {
+                        // Both source and destination ports have the ability to receive trucks,
+                        // and the truck has enough fuel and carrying capacity.
+                        return true;
+                    }
                 }
             }
         }

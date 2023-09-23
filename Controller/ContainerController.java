@@ -1,24 +1,25 @@
 package Controller;
 
 import Model.Container;
+import Model.Trip;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ContainerManager {
-    private static ContainerManager instance;
+public class ContainerController {
+    private static ContainerController instance;
     private List<Container> listOfContainers;
     private int lastAssignedNumber = 0;
 
-    private ContainerManager() {
+    private ContainerController() {
         listOfContainers = new ArrayList<>();
     }
 
-    public static ContainerManager getInstance() {
+    public static ContainerController getInstance() {
         if (instance == null) {
-            instance = new ContainerManager();
+            instance = new ContainerController();
         }
         return instance;
     }
@@ -36,7 +37,7 @@ public class ContainerManager {
     }
 
     public Container addContainer(double weight, Container.ContainerType type) {
-        Container container = new Container(this.generateUniqueContainerID(),weight,type);
+        Container container = new Container("c-"+this.generateUniqueContainerID(),weight,type);
         listOfContainers.add(container);
         this.saveContainersToFile();
         return container;
@@ -73,14 +74,31 @@ public class ContainerManager {
             e.printStackTrace();
         }
     }
+    public void updateContainer(String id, Container container){
+        if (this.contains(id)){
+            this.listOfContainers.removeIf(container1 -> container.getContainerID().equals(id));
+            this.listOfContainers.add(container);
+            this.saveContainersToFile();
+        }
+    }
     private synchronized String generateUniqueContainerID() {
-        lastAssignedNumber++;
-        return "c-" + lastAssignedNumber;
+        int maxAssignedNumber = 0;
+        for (Container container : listOfContainers) {
+            String containerID = container.getContainerID();
+            if (containerID.startsWith("c-")) {
+                try {
+                    int number = Integer.parseInt(containerID.substring(2));
+                    maxAssignedNumber = Math.max(maxAssignedNumber, number);
+                } catch (NumberFormatException e) {
+                }
+            }
+        }
+        return String.valueOf(maxAssignedNumber+1);
     }
 
     public static void main(String[] args) {
-       ContainerManager containerManager = ContainerManager.getInstance();
-       containerManager.addContainer(78.9, Container.ContainerType.LIQUID);
+       ContainerController containerController = ContainerController.getInstance();
+       containerController.addContainer(78.9, Container.ContainerType.LIQUID);
     }
 }
 

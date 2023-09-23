@@ -1,12 +1,14 @@
 #ID,Name,Email,Address,Phone,Username,Password,Port,Role
-u1,Alice Johnson,alice.johnson@gmail.com,14 Pine Street,0999991111,alicej,abcd1234,1,Manager
-u2,Bob Smith,bob.smith@yahoo.com,15 Oak Road,0888882222,bobS,wxyz5678,2,Manager
-u3,Charlie Brown,charlie.brown@hotmail.com,16 Maple Lane,0777773333,charlieB,1234abcd,3,Manager
-u4,David Lee,david.lee@gmail.com,17 Elm Drive,0666664444,davidL,5678wxyz,4,Manager
-u5,Ella Martinez,ella.martinez@gmail.com,18 Cedar Street,0555555555,ellaM,qwer4321,5,Manager
-u6,Frank White,frank.white@yahoo.com,19 Willow Way,0444446666,frankW,zxcv8765,1,Manager
-u7,Grace Kim,grace.kim@gmail.com,20 Pine Avenue,0333337777,graceK,4321qwer,2,Manager
-u8,Henry Clark,henry.clark@hotmail.com,21 Birch Road,0222228888,henryC,8765zxcv,3,Manager
-u9,Ivy Wilson,ivy.wilson@yahoo.com,22 Aspen Boulevard,0111119999,ivyW,1qaz2wsx,4,Manager
-u10,1,1,1,1,1,1,1,Manager
-u11,123,123,123,123,12,3,1,Manager
+u-1,Alice Johnson,alice.johnson@gmail.com,14 Pine Street,0999991111,alicej,abcd1234,p-1,Manager
+u-2,Bob Smith,bob.smith@yahoo.com,15 Oak Road,0888882222,bobS,wxyz5678,p-2,Manager
+u-3,Charlie Brown,charlie.brown@hotmail.com,16 Maple Lane,0777773333,charlieB,1234abcd,p-3,Manager
+u-4,David Lee,david.lee@gmail.com,17 Elm Drive,0666664444,davidL,5678wxyz,p-4,Manager
+u-5,Ella Martinez,ella.martinez@gmail.com,18 Cedar Street,0555555555,ellaM,qwer4321,p-5,Manager
+u-6,Frank White,frank.white@yahoo.com,19 Willow Way,0444446666,frankW,zxcv8765,p-6,Manager
+u-7,Grace Kim,grace.kim@gmail.com,20 Pine Avenue,0333337777,graceK,4321qwer,p-7,Manager
+u-8,Henry Clark,henry.clark@hotmail.com,21 Birch Road,0222228888,henryC,8765zxcv,p-8,Manager
+u-9,Ivy Wilson,ivy.wilson@yahoo.com,22 Aspen Boulevard,0111119999,ivyW,1qaz2wsx,p-9,Manager
+u-10,Alice Johnson,alice.johnson@gmail.com,14 Pine Street,0999991111,testmanager,25f9e794323b453885f5181f1b624d0b,p-1,Manager
+u-11,Alice Johnson,alice.johnson@gmail.com,14 Pine Street,0999991111,admin,21232f297a57a5a743894a0e4a801fc3,#,Admin
+u-12,Huynh,huynh,huynh,huynh,huynh,724432de08f74e1fb4dfb69fb4cc7ba8,p-2,Manager
+u-13,nhan ngu,nhanngu@gmail.com,nha nhan,0123,nhan,bb4e31f2d20f8e7f88e2b8459263657f,p-1,Manager

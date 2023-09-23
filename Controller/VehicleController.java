@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Container;
 import Model.Ship;
 import Model.Truck;
 import Model.Vehicle;
@@ -8,19 +9,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class VehicleManager {
-    private static VehicleManager instance;
+public class VehicleController {
+    private static VehicleController instance;
     private List<Vehicle> listOfVehicles;
     private int lastAssignedNumber = 0;
 
-    private VehicleManager() {
+    private VehicleController() {
         listOfVehicles = new ArrayList<>();
     }
 
-    public static VehicleManager getInstance() {
+    public static VehicleController getInstance() {
         if (instance == null) {
-            instance = new VehicleManager();
+            instance = new VehicleController();
         }
         return instance;
     }
@@ -39,8 +41,8 @@ public class VehicleManager {
         return this.listOfVehicles.stream().anyMatch(vehicle -> vehicle.getVehicleID().equals(vehicleID));
     }
 
-    public Truck addTruck(String name, double carryingCapacity, double fuelCapacity, String type) {
-        Truck vehicle = new Truck(this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity, Truck.TruckType.valueOf(type));
+    public Truck addTruck(String name, double carryingCapacity, double fuelCapacity, String type, String portID) {
+        Truck vehicle = new Truck("tr-" + this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity, Truck.TruckType.valueOf(type),portID);
 
         if (vehicle != null) {
             listOfVehicles.add(vehicle);
@@ -50,8 +52,8 @@ public class VehicleManager {
         return vehicle;
     }
 
-    public Ship addShip(String name, double carryingCapacity, double fuelCapacity) {
-        Ship vehicle = new Ship(this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity);
+    public Ship addShip(String name, double carryingCapacity, double fuelCapacity, String portID) {
+        Ship vehicle = new Ship("sh-" + this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity,portID);
 
         if (vehicle != null) {
             listOfVehicles.add(vehicle);
@@ -95,24 +97,35 @@ public class VehicleManager {
         }
     }
 
+    public List<Vehicle> getAllVehiclesAtPort(String portID){
+        return this.listOfVehicles.stream().filter(vehicle -> vehicle.getCurrentPort().equals(portID)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void updateVehicle(String id, Vehicle vehicle){
+        if (this.contains(id)){
+            this.listOfVehicles.removeIf(vehicle1 -> vehicle1.getVehicleID().equals(id));
+            this.listOfVehicles.add(vehicle);
+            this.saveVehiclesToFile();
+        }
+    }
     private synchronized String generateUniqueVehicleID() {
         int maxAssignedNumber = 0;
         for (Vehicle vehicle : listOfVehicles) {
             String vehicleID = vehicle.getVehicleID();
-            if (vehicleID.startsWith("v-")) {
+            if (vehicleID.startsWith("sh-")||(vehicleID.startsWith("tr-"))) {
                 try {
-                    int number = Integer.parseInt(vehicleID.substring(2));
+                    int number = Integer.parseInt(vehicleID.substring(3));
                     maxAssignedNumber = Math.max(maxAssignedNumber, number);
                 } catch (NumberFormatException e) {
                 }
             }
         }
-        return "v-" + String.valueOf(maxAssignedNumber+1);
+        return String.valueOf(maxAssignedNumber+1);
     }
 
-    public static void main(String[] args) {
-        VehicleManager.getInstance().addTruck("HONDA", 876, 344, "BASIC");
-    }
+//    public static void main(String[] args) {
+//        VehicleController.getInstance().addTruck("HONDA", 876, 344, "BASIC");
+//    }
 }
 
 

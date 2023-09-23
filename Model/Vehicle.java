@@ -13,7 +13,7 @@ public abstract class Vehicle implements Serializable {
     protected double currentFuel;
     protected double carryingCapacity;
     protected double fuelCapacity;
-    protected Port currentPort;
+    protected String currentPort;
 
     protected List<Container> containerList = new ArrayList<Container>();
 
@@ -49,10 +49,10 @@ public abstract class Vehicle implements Serializable {
     public void setFuelCapacity(double fuelCapacity) {
         this.fuelCapacity = fuelCapacity;
     }
-    public Port getCurrentPort() {
+    public String getCurrentPort() {
         return currentPort;
     }
-    public void setCurrentPort(Port currentPort) {
+    public void setCurrentPort(String currentPort) {
         this.currentPort = currentPort;
     }
     public List<Container> getContainerList() {
@@ -81,20 +81,21 @@ public abstract class Vehicle implements Serializable {
     public abstract double calculateFuelConsumption(double distance);
     public Vehicle() {}
 
-    public Vehicle(String vehicleID, String name, double carryingCapacity, double fuelCapacity)
+    public Vehicle(String vehicleID, String name, double carryingCapacity, double fuelCapacity, String currentPort)
     {
         this.vehicleID = vehicleID;
         this.name = name;
         this.currentFuel = fuelCapacity;
         this.carryingCapacity = carryingCapacity;
         this.fuelCapacity = fuelCapacity;
+        this.currentPort = currentPort;
     }
 
     public boolean canLoadContainer(Container container) {
         double totalWeightWithContainer = this.getTotalWeight()+container.getWeight();
         return totalWeightWithContainer <= carryingCapacity;
     }
-
+    public abstract boolean canMoveToPort(Port departurePort, Port destinationPort);
     public double getTotalWeight() {
         double totalWeight = this.containerList.stream()
                 .mapToDouble(container -> container.getWeight())

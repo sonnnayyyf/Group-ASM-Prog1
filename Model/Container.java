@@ -13,7 +13,7 @@ public class Container implements Serializable {
     private Map<String, FuelRate> fuelConsumption;
 
     public Container(String containerID, double weight, ContainerType type) {
-        this.containerID = generateUniqueContainerID();
+        this.containerID = containerID;
         this.weight = weight;
         this.type = type;
     }
@@ -82,12 +82,5 @@ public class Container implements Serializable {
         map.put("Ship", shipRate);
         map.put("Truck", truckRate);
         return map;
-    }
-
-    private synchronized String generateUniqueContainerID() {
-        Random random = new Random();
-        // Generate a random number and append it to "c-"
-        int randomSuffix = random.nextInt(100000); // Adjust the range as needed
-        return "c-" + randomSuffix;
     }
 }

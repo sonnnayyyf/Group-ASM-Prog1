@@ -16,11 +16,9 @@ public abstract class User {
     private String phone;
     private String username;
     private String password;
-    private int port;
-    private String role;
 
     // Constructor
-    public User(String uID, String name, String email, String address, String phone, String userName, String password, int port, String role) {
+    public User(String uID, String name, String email, String address, String phone, String userName, String password) {
         this.uID = uID;
         this.name = name;
         this.email = email;
@@ -28,14 +26,7 @@ public abstract class User {
         this.phone = phone;
         this.username = userName;
         this.password = password;
-        this.port = port;
-        this.role = role;
     }
-
-    // Constructor
-    public User() {
-    }
-
 
     // Hashing the customer's password
     public String hashing(String password) {
@@ -133,23 +124,4 @@ public abstract class User {
         this.password = password;
     }
 
-    // Getter method for port
-    public int getPort() {
-        return port;
-    }
-
-    // Setter method for port
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    // Getter method for role
-    public String getRole() {
-        return role;
-    }
-
-    // Setter method for role
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

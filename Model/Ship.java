@@ -2,28 +2,31 @@ package Model;
 
 public class Ship extends Vehicle{
 
-    public Ship(String vehicleID, String name, double carryingCapacity, double fuelCapacity) {
-        super(vehicleID, name, carryingCapacity, fuelCapacity);
+    public Ship(String vehicleID, String name, double carryingCapacity, double fuelCapacity, String currenPort) {
+        super(vehicleID, name, carryingCapacity, fuelCapacity, currenPort);
     }
 
     @Override
     public boolean loadContainer(Container container){
         if (this.canLoadContainer(container)) {
             this.containerList.add(container);
+            return true;
         }
         return false;
     }
 
     // Determine if it Can Move to a Port
     public boolean canMoveToPort(Port departurePort, Port destinationPort) {
-        // Check if the truck's fuel level is enough for the trip
-        double requiredFuel = calculateFuelConsumption(departurePort.calculateDistance(destinationPort));
-        if (currentFuel > requiredFuel) {
-            double totalWeightWithContainers = this.getTotalWeight();
-            if (totalWeightWithContainers <= carryingCapacity) {
-                // Both source and destination ports have the ability to receive trucks,
-                // and the truck has enough fuel and carrying capacity.
-                return true;
+        if (!departurePort.getPortID().equals(destinationPort.getPortID())) {
+            // Check if the truck's fuel level is enough for the trip
+            double requiredFuel = calculateFuelConsumption(departurePort.calculateDistance(destinationPort));
+            if (currentFuel > requiredFuel) {
+                double totalWeightWithContainers = this.getTotalWeight();
+                if (totalWeightWithContainers <= carryingCapacity) {
+                    // Both source and destination ports have the ability to receive trucks,
+                    // and the truck has enough fuel and carrying capacity.
+                    return true;
+                }
             }
         }
         return false;

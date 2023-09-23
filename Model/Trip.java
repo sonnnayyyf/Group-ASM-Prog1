@@ -1,29 +1,39 @@
 package Model;
 
 
+import Controller.VehicleController;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Trip {
-    private Vehicle vehicle;
+public class Trip implements Serializable {
+    private String tripID;
+    private String vehicleID;
     private Date departureDate;
     private Date arrivalDate;
-    private Port departurePort;
+    private String departurePort;
 
-    private Port arrivalPort;
+    private String arrivalPort;
     private TripStatus status;
 
     public enum TripStatus {
         ONGOING,
         COMPLETED
     }
-
-    public Vehicle getVehicle() {
-        return vehicle;
+    public String getTripID() {
+        return tripID;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setTripID(String tripID) {
+        this.tripID = tripID;
+    }
+    public String getVehicleID() {
+        return this.vehicleID;
+    }
+
+    public void setVehicleID(String vehicleID) {
+        this.vehicleID = vehicleID;
     }
 
     public Date getDepartureDate() {
@@ -42,19 +52,19 @@ public class Trip {
         this.arrivalDate = arrivalDate;
     }
 
-    public Port getDeparturePort() {
+    public String getDeparturePort() {
         return departurePort;
     }
 
-    public void setDeparturePort(Port departurePort) {
+    public void setDeparturePort(String departurePort) {
         this.departurePort = departurePort;
     }
 
-    public Port getArrivalPort() {
+    public String getArrivalPort() {
         return arrivalPort;
     }
 
-    public void setArrivalPort(Port arrivalPort) {
+    public void setArrivalPort(String arrivalPort) {
         this.arrivalPort = arrivalPort;
     }
 
@@ -66,8 +76,9 @@ public class Trip {
         this.status = status;
     }
 
-    public Trip(Vehicle vehicle, Date departureDate, Date arrivalDate, Port departurePort, Port arrivalPort, TripStatus status) {
-        this.vehicle = vehicle;
+    public Trip(String tripID, String vehicleID, Date departureDate, Date arrivalDate, String departurePort, String arrivalPort, TripStatus status) {
+        this.tripID = tripID;
+        this.vehicleID = vehicleID;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
         this.departurePort = departurePort;
@@ -75,19 +86,17 @@ public class Trip {
         this.status = status;
     }
 
-    public void displayTripDetails() {
+    public String getTripDetails() {
+        StringBuilder builder = new StringBuilder();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        System.out.println("Trip Details:");
-        System.out.println("Vehicle Information: " + vehicle);
-        System.out.println("Departure Date: " + dateFormat.format(departureDate));
-        System.out.println("Arrival Date: " + dateFormat.format(arrivalDate));
-        System.out.println("Departure Port: " + departurePort);
-        System.out.println("Arrival Port: " + arrivalPort);
-        System.out.println("Status: " + status);
+        builder.append("Trip Details:").append("\n");
+        builder.append("Vehicle: " + VehicleController.getInstance().getVehicleByID(vehicleID)).append("\n");
+        builder.append("Departure Date: " + dateFormat.format(departureDate)).append("\n");
+        builder.append("Arrival Date: " + dateFormat.format(arrivalDate)).append("\n");
+        builder.append("Departure Port: " + departurePort).append("\n");
+        builder.append("Arrival Port: " + arrivalPort).append("\n");
+        builder.append("Status: " + status);
+        return builder.toString();
     }
-
-
-
-
 
 }

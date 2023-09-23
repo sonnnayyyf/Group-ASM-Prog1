@@ -1,7 +1,9 @@
 package Model;
 
-import Controller.PortsManager;
-import Controller.TripsManager;
+import Controller.ContainerController;
+import Controller.PortController;
+import Controller.TripController;
+import Controller.VehicleController;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,17 +16,16 @@ public class Port implements Serializable {
     private double longitude;
     private double storingCapacity;
     private boolean landingAbility;
-    private List<Container> listOfContainer = new ArrayList<Container>();
-    private int numberOfVehicles;
+    private List<String> listOfContainer;
 
-    public Port(String name, double latitude, double longitude, int storingCapacity, boolean landingAbility) {
-        this.portID = "p-" + String.valueOf(PortsManager.getInstance().getNumberOfPorts()+1);
+    public Port(String portID, String name, double latitude, double longitude, int storingCapacity, boolean landingAbility) {
+        this.portID = portID;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.storingCapacity = storingCapacity;
         this.landingAbility = landingAbility;
-        this.numberOfVehicles = 0;
+        this.listOfContainer = new ArrayList<>();
     }
     public String getPortID() {
         return portID;
@@ -77,48 +78,39 @@ public class Port implements Serializable {
     public int getNumberOfContainers() {
         return listOfContainer.size();
     }
-    public List<Container> getListOfContainer() {
+    public List<String> getListOfContainer() {
         return listOfContainer;
     }
 
-    public void setListOfContainer(List<Container> listOfContainer) {
+    public void setListOfContainer(List<String> listOfContainer) {
         this.listOfContainer = listOfContainer;
     }
 
-    public int getNumberOfVehicles() {
-        return numberOfVehicles;
+    public boolean containsContainer(String containerID){
+        return this.listOfContainer.stream().anyMatch(container -> container.equals(containerID));
     }
-
-    public void setNumberOfVehicles(int numberOfVehicles) {
-        this.numberOfVehicles = numberOfVehicles;
-    }
-    public void addContainers(ArrayList<Container> listOfContainer) {
-        this.listOfContainer.addAll(listOfContainer);
+    public boolean addContainer(String containerID) {
+        if (!this.listOfContainer.contains(containerID)){
+            this.listOfContainer.add(containerID);
+            return true;
+        }
+        return false;
     }
 
     public void removeContainer(String containerID) {
-        this.listOfContainer.removeIf(container -> container.getContainerID().equals(containerID));
-    }
-
-    public void addVehicles(int amount) {
-        numberOfVehicles += amount;
-    }
-
-    public void removeVehicles(int amount) {
-        numberOfVehicles -= amount;
+        this.listOfContainer.removeIf(container -> container.equals(containerID));
     }
 
     public double getRemainingCapacity(){
         double remainingCapacity = this.storingCapacity;
-        for (Container container:
-                this.listOfContainer) {
-            remainingCapacity -= container.getWeight();
+        for (String containerID : this.listOfContainer){
+            remainingCapacity -= ContainerController.getInstance().getContainerByID(containerID).get().getWeight();
         }
         return remainingCapacity;
     }
 
     public ArrayList<Trip> getTripHistory(){
-        return TripsManager.getInstance().getTripsOfPort(this.portID);
+        return TripController.getInstance().getTripsOfPort(this.portID);
     }
     public double calculateDistance(Port otherPort) {
         double earthRadius = 6371;
@@ -135,15 +127,20 @@ public class Port implements Serializable {
 
         return earthRadius * c;
     }
+
+    public int getNumberOfVehicles(){
+        return VehicleController.getInstance().getAllVehiclesAtPort(this.portID).size();
+    }
     public String getPortDetails() {
         return  "Port ID: " + this.portID + "\n" +
                 "Name: " + this.name + "\n" +
                 "Latitude: " + this.latitude + "\n" +
                 "Longitude: " + this.longitude + "\n" +
                 "Storing Capacity: " + this.storingCapacity + "\n" +
+                "Remaining Capacity: " + this.getRemainingCapacity() + "\n" +
                 "Landing Ability: " + this.landingAbility + "\n" +
-                "Number of Containers: " + this.listOfContainer.size() + "\n" +
-                "Number of Vehicles: " + this.numberOfVehicles;
+                "Number of Containers: " + this.listOfContainer.size() + "\n"+
+                "Number of Vehicles: " + this.getNumberOfVehicles() + "\n";
     }
 
 }
