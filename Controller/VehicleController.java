@@ -56,7 +56,7 @@ public class VehicleController {
     }
 
     public Truck addTruck(String name, double carryingCapacity, double fuelCapacity, String type, String portID) {
-        Truck vehicle = new Truck("tr-" + this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity, Truck.TruckType.valueOf(type),portID);
+        Truck vehicle = new Truck("tr-" + this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity, Truck.TruckType.valueOf(type), portID);
 
         if (vehicle != null) {
             listOfVehicles.add(vehicle);
@@ -67,7 +67,7 @@ public class VehicleController {
     }
 
     public Ship addShip(String name, double carryingCapacity, double fuelCapacity, String portID) {
-        Ship vehicle = new Ship("sh-" + this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity,portID);
+        Ship vehicle = new Ship("sh-" + this.generateUniqueVehicleID(), name, carryingCapacity, fuelCapacity, portID);
 
         if (vehicle != null) {
             listOfVehicles.add(vehicle);
@@ -111,22 +111,23 @@ public class VehicleController {
         }
     }
 
-    public List<Vehicle> getAllVehiclesAtPort(String portID){
+    public List<Vehicle> getAllVehiclesAtPort(String portID) {
         return this.listOfVehicles.stream().filter(vehicle -> vehicle.getCurrentPort().equals(portID)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void updateVehicle(String id, Vehicle vehicle){
-        if (this.contains(id)){
+    public void updateVehicle(String id, Vehicle vehicle) {
+        if (this.contains(id)) {
             this.listOfVehicles.removeIf(vehicle1 -> vehicle1.getVehicleID().equals(id));
             this.listOfVehicles.add(vehicle);
             this.saveVehiclesToFile();
         }
     }
+
     private synchronized String generateUniqueVehicleID() {
         int maxAssignedNumber = 0;
         for (Vehicle vehicle : listOfVehicles) {
             String vehicleID = vehicle.getVehicleID();
-            if (vehicleID.startsWith("sh-")||(vehicleID.startsWith("tr-"))) {
+            if (vehicleID.startsWith("sh-") || (vehicleID.startsWith("tr-"))) {
                 try {
                     int number = Integer.parseInt(vehicleID.substring(3));
                     maxAssignedNumber = Math.max(maxAssignedNumber, number);
@@ -134,12 +135,8 @@ public class VehicleController {
                 }
             }
         }
-        return String.valueOf(maxAssignedNumber+1);
+        return String.valueOf(maxAssignedNumber + 1);
     }
-
-//    public static void main(String[] args) {
-//        VehicleController.getInstance().addTruck("HONDA", 876, 344, "BASIC");
-//    }
 }
 
 
