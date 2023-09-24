@@ -27,29 +27,32 @@ public class ContainerController {
     public List<Container> getAllContainers() {
         return listOfContainers;
     }
-    public Optional<Container> getContainerByID(String containerID){
+
+    public Optional<Container> getContainerByID(String containerID) {
         return this.listOfContainers.stream()
                 .filter(port -> port.getContainerID().equals(containerID))
                 .findFirst();
     }
-    public boolean contains(String containerID){
+
+    public boolean contains(String containerID) {
         return this.listOfContainers.stream().anyMatch(container -> container.getContainerID().equals(containerID));
     }
 
     public Container addContainer(double weight, Container.ContainerType type) {
-        Container container = new Container("c-"+this.generateUniqueContainerID(),weight,type);
+        Container container = new Container("c-" + this.generateUniqueContainerID(), weight, type);
         listOfContainers.add(container);
         this.saveContainersToFile();
         return container;
     }
 
     public boolean removeContainer(String containerID) {
-        if (listOfContainers.removeIf(container -> container.getContainerID().equals(containerID))){
+        if (listOfContainers.removeIf(container -> container.getContainerID().equals(containerID))) {
             this.saveContainersToFile();
             return true;
         }
         return false;
     }
+
     public void saveContainersToFile() {
         try (FileOutputStream fileOutputStream = new FileOutputStream("dataFile/containers.ser");
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
@@ -61,6 +64,7 @@ public class ContainerController {
             e.printStackTrace();
         }
     }
+
     public void loadContainersFromFile() {
         try (FileInputStream fileInputStream = new FileInputStream("dataFile/containers.ser");
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
@@ -74,13 +78,15 @@ public class ContainerController {
             e.printStackTrace();
         }
     }
-    public void updateContainer(String id, Container container){
-        if (this.contains(id)){
+
+    public void updateContainer(String id, Container container) {
+        if (this.contains(id)) {
             this.listOfContainers.removeIf(container1 -> container.getContainerID().equals(id));
             this.listOfContainers.add(container);
             this.saveContainersToFile();
         }
     }
+
     private synchronized String generateUniqueContainerID() {
         int maxAssignedNumber = 0;
         for (Container container : listOfContainers) {
@@ -93,12 +99,6 @@ public class ContainerController {
                 }
             }
         }
-        return String.valueOf(maxAssignedNumber+1);
-    }
-
-    public static void main(String[] args) {
-       ContainerController containerController = ContainerController.getInstance();
-       containerController.addContainer(78.9, Container.ContainerType.LIQUID);
+        return String.valueOf(maxAssignedNumber + 1);
     }
 }
-

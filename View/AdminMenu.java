@@ -69,19 +69,19 @@ public class AdminMenu implements Menu{
                     try{
                         this.displayPortPreview();
                         System.out.println("=====Create new user=====");
-                        System.out.println("Enter name: ");
+                        System.out.print("Enter name: ");
                         String name = scanner.nextLine();
-                        System.out.println("Enter email: ");
+                        System.out.print("Enter email: ");
                         String email = scanner.nextLine();
-                        System.out.println("Enter address: ");
+                        System.out.print("Enter address: ");
                         String address = scanner.nextLine();
-                        System.out.println("Enter phone: ");
+                        System.out.print("Enter phone: ");
                         String phone = scanner.nextLine();
-                        System.out.println("Enter username: ");
+                        System.out.print("Enter username: ");
                         String username = scanner.nextLine();
-                        System.out.println("Enter password: ");
+                        System.out.print("Enter password: ");
                         String password = scanner.nextLine();
-                        System.out.println("Enter port id (p-<number>): ");
+                        System.out.print("Enter port id (p-<number>): ");
                         String port = scanner.nextLine();
                         userController.createManager(name, email, address, phone, username, password, port);
                     } catch (Exception e){
@@ -90,7 +90,7 @@ public class AdminMenu implements Menu{
                     break;
                 case 2:
                     try{
-                        System.out.println("Enter user to remove: ");
+                        System.out.print("Enter user to remove: ");
                         String username = scanner.nextLine();
                         userController.removeUser(username);
                     } catch (Exception e){
@@ -151,7 +151,7 @@ public class AdminMenu implements Menu{
                         System.out.print("Enter port ID to remove (p-<number>): ");
                         String id = scanner.nextLine();
                         if (portController.removePort(id)) {
-                            System.out.println("Removed port " + id + "from the system");
+                            System.out.println("Removed port " + id + " from the system");
                         } else {
                             System.out.println("Invalid ID, please try again");
                         }
@@ -214,7 +214,7 @@ public class AdminMenu implements Menu{
                                     break;
                                 }
                                 case 2: {
-                                    portController.removePort(containerID);
+                                    containerController.removeContainer(containerID);
                                     System.out.println("Container " + containerID + " has been removed");
                                 }
                             }
@@ -236,7 +236,7 @@ public class AdminMenu implements Menu{
         int choice;
         do {
             System.out.println("===== Vehicle Manager Menu =====");
-            System.out.println("1. View & Update Vehicle");
+            System.out.println("1. View & Update or Remove Vehicle");
             System.out.println("2. Return");
             System.out.print("Enter your choice: ");
 
@@ -250,16 +250,16 @@ public class AdminMenu implements Menu{
                         System.out.print("Enter vehicle ID to view (tr-<number>/sh-<number>): ");
                         String id = scanner.nextLine();
                         System.out.println(vehicleController.getVehicleByID(id).get().getDetails());
-                        System.out.print("\n1. Edit \n2. Return \nDo you want to:");
+                        System.out.print("\n1. Edit \n2. Remove \n3. Return \nDo you want to: ");
                         int input = Integer.parseInt(scanner.nextLine());
                         switch (input){
                             case 1:
                                 Vehicle vehicle = vehicleController.getVehicleByID(id).get();
-                                System.out.print("Enter vehicle name (Enter to skip):");
+                                System.out.print("Enter vehicle name (Enter to skip): ");
                                 String name = scanner.nextLine();
                                 if (!name.isEmpty()){vehicle.setName(name);};
                                 if (vehicle instanceof Truck){
-                                    System.out.print("Enter truck type (BASIC/REEFER/TANKER/Enter to skip):");
+                                    System.out.print("Enter truck type (BASIC/REEFER/TANKER/Enter to skip): ");
                                     String truckType = scanner.nextLine().toUpperCase();
                                     if (!truckType.isEmpty()){((Truck)vehicle).setType(Truck.TruckType.valueOf(truckType));}
                                 }
@@ -271,7 +271,11 @@ public class AdminMenu implements Menu{
                                 if(!fuelCapacity.isEmpty()){vehicle.setFuelCapacity(Double.parseDouble(fuelCapacity));}
                                 System.out.println("Vehicle updated");
                                 break;
-                            case 2:
+                            case 2: {
+                                vehicleController.removeVehicle(id);
+                                System.out.println("Vehicle " + id + " has been removed");
+                            }
+                            case 3:
                                 break;
                         }
                     }catch (Exception e){

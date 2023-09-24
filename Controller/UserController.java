@@ -122,8 +122,4 @@ public class UserController {
         }
         return String.valueOf(maxAssignedNumber+1);
     }
-    public static void main(String[] args) {
-        //testing
-        UserController.getInstance().loadUsersFromFile();
-    }
 }

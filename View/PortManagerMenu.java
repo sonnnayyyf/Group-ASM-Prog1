@@ -159,13 +159,13 @@ public class PortManagerMenu implements Menu{
             switch (choice) {
                 case 1:
                     try {
-                        System.out.print("Enter vehicle name:");
+                        System.out.print("Enter vehicle name: ");
                         String name = scanner.nextLine();
-                        System.out.print("Enter vehicle type (TRUCK/SHIP):");
+                        System.out.print("Enter vehicle type (TRUCK/SHIP): ");
                         String type = scanner.nextLine().toUpperCase();
                         String truckType = "";
                         if (type.equals("TRUCK")){
-                            System.out.print("Enter truck type (BASIC/REEFER/TANKER):");
+                            System.out.print("Enter truck type (BASIC/REEFER/TANKER): ");
                             truckType = scanner.nextLine().toUpperCase();
                         }
                         System.out.print("Enter carrying capacity: ");
