@@ -150,7 +150,8 @@ public class PortManagerMenu implements Menu{
             System.out.println("4. Unload Container");
             System.out.println("5. Move Vehicle to Port");
             System.out.println("6. Refuel Vehicle");
-            System.out.println("7. Return");
+            System.out.println("7. View average daily fuel consumption");
+            System.out.println("8. Return");
             System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
@@ -177,7 +178,7 @@ public class PortManagerMenu implements Menu{
                             System.out.println("Truck "+truck.getVehicleID() + " has been added");
                         } else if (type.equals("SHIP")){
                             Ship ship = vehicleController.addShip(name, carryingCapacity, fuelCapacity, port.getPortID());
-                            System.out.println("SHIP "+ship.getVehicleID() + " has been added");
+                            System.out.println("Ship "+ship.getVehicleID() + " has been added");
                         } else {
                             System.out.println("Invalid arguments. Please try again");
                         }
@@ -329,12 +330,16 @@ public class PortManagerMenu implements Menu{
                     }
                     break;
                 case 7:
+                    double stat = tripController.getFuelDailyConsumption(port.getPortID());
+                    System.out.println("Daily fuel consumption: "+String.valueOf(stat)+ " liters");
+                    break;
+                case 8:
                     System.out.println("Returning...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 7);
+        } while (choice != 8);
     }
 
     public void tripMenu(){

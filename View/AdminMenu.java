@@ -3,11 +3,9 @@ package View;
 import Controller.*;
 import Model.*;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 public class AdminMenu implements Menu{
     private Admin admin;
@@ -187,7 +185,8 @@ public class AdminMenu implements Menu{
         do {
             System.out.println("===== Container Manager Menu =====");
             System.out.println("1. View|Edit|Remove Container");
-            System.out.println("2. Return");
+            System.out.println("2. Container count by type");
+            System.out.println("3. Return");
             System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
@@ -224,12 +223,20 @@ public class AdminMenu implements Menu{
                     }
                     break;
                 case 2:
+                    List<Container> containers = containerController.getAllContainers();
+                    System.out.println("DRY_STORAGE: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.DRY_STORAGE)).count());
+                    System.out.println("OPEN_TOP: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.OPEN_TOP)).count());
+                    System.out.println("OPEN_SIDE: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.OPEN_SIDE)).count());
+                    System.out.println("REFRIGERATED: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.REFRIGERATED)).count());
+                    System.out.println("LIQUID: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.LIQUID)).count());
+                    break;
+                case 3:
                     System.out.println("Returning...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 2);
+        } while (choice != 3);
     }
 
     private void vehicleMenu() {
@@ -392,21 +399,22 @@ public class AdminMenu implements Menu{
             }
         }
     }
+
     public void printUserTable(List<User> users) {
         // Define the table header
-        System.out.printf("%-10s %-20s %-30s %-30s %-15s %-15s%n",
+        System.out.printf("%-10s %-20s %-30s %-30s %-15s %-15s %-15s%n",
                 "User ID", "Name", "Email", "Address", "Phone", "Username", "Port");
 
         // Loop through the list of users and print each user as a row in the table
         for (User user : users) {
-            System.out.printf("%-10s %-20s %-30s %-30s %-15s %-15s%n %-15s%n",
+            System.out.printf("%-10s %-20s %-30s %-30s %-15s %-15s %-15s%n",
                     user.getuID(),
                     user.getName(),
                     user.getEmail(),
                     user.getAddress(),
                     user.getPhone(),
-                    user.getUsername());
-                    ((PortManager) user).getPort();
+                    user.getUsername(),
+                    (user instanceof PortManager) ? ((PortManager) user).getPort() : "");
         }
     }
 }

@@ -35,12 +35,15 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Code/java/Group-ASM-Prog1 2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/quochuynh2412/Downloads/Group-ASM-Prog1 2 2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -138,8 +141,7 @@
       <workItem from="1695470631285" duration="1643000" />
       <workItem from="1695472300857" duration="4192000" />
       <workItem from="1695480657750" duration="23237000" />
-      <workItem from="1695504265243" duration="2225000" />
-      <workItem from="1695506905260" duration="6947000" />
+      <workItem from="1695529235234" duration="1300000" />
     </task>
     <servers />
   </component>

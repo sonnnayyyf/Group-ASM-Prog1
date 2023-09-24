@@ -1,10 +1,12 @@
 package Controller;
 
+import Model.Port;
 import Model.Trip;
 import Model.Vehicle;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Date;
 
@@ -107,6 +109,22 @@ public class TripController {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public double getFuelDailyConsumption(String portID){
+        List<Trip> tripList = this.getTripsOfPort(portID);
+        double totalFuelConsumption = 0;
+        long duration = 0;
+        for (Trip trip:
+             tripList) {
+            Vehicle vehicle = VehicleController.getInstance().getVehicleByID(trip.getVehicleID()).get();
+            Port departurePort = PortController.getInstance().getPortByID(trip.getDeparturePort()).get();
+            Port arrivalPort = PortController.getInstance().getPortByID(trip.getArrivalPort()).get();
+            totalFuelConsumption+=vehicle.calculateFuelConsumption(departurePort.calculateDistance(arrivalPort));
+            duration += trip.getArrivalDate().getTime() - trip.getDepartureDate().getTime();
+        }
+        duration = duration / (24 * 60 * 60 * 1000L);
+        return totalFuelConsumption / duration;
     }
     private synchronized String generateUniqueTripID() {
         int maxAssignedNumber = 0;
