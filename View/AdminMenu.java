@@ -54,8 +54,8 @@ public class AdminMenu implements Menu{
         do {
             System.out.println("===== Admin Menu =====");
             System.out.println("1. Add Port Manager");
-            System.out.println("2. Remove User");
-            System.out.println("3. View All Users");
+            System.out.println("2. Remove Port Manager");
+            System.out.println("3. View All Port Managers");
             System.out.println("4. Return");
             System.out.print("Enter your choice: ");
 
@@ -66,7 +66,7 @@ public class AdminMenu implements Menu{
                 case 1:
                     try{
                         this.displayPortPreview();
-                        System.out.println("=====Create new user=====");
+                        System.out.println("=====Create new port manager=====");
                         System.out.print("Enter name: ");
                         String name = scanner.nextLine();
                         System.out.print("Enter email: ");

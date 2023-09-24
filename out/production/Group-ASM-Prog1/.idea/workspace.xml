@@ -4,45 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55e97149-4f4a-4eac-9494-02d6cc1d4bdb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controller/ContainerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controller/PortController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controller/VehicleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Group-ASM-Prog1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/Ship.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/View/Menu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/View/PortManagerMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fileMethods/EncryptUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Group-ASM-Prog1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Container/Container.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Container.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Container/FuelRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/FuelRate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Port/Port.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Port.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trip/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Trip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trip/TripsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/TripController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vehicle/Ship.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vehicle/Truck.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Truck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vehicle/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Vehicle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataFile/users.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataFile/users.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fileMethods/CreateTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/fileMethods/CreateTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fileMethods/ReadDataFromTXTFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/fileMethods/ReadDataFromTXTFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fileMethods/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/fileMethods/UserInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fileMethods/Write.java" beforeDir="false" afterPath="$PROJECT_DIR$/fileMethods/Write.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/AdminMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/AuthenticationSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/View/AuthenticationMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu/CustomerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/PortManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/Customer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Model/User.java" afterDir="false" />
-    </list>
+    <list default="true" id="55e97149-4f4a-4eac-9494-02d6cc1d4bdb" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,12 +35,15 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/quochuynh2412/Downloads/Group-ASM-Prog1 2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/quochuynh2412/Downloads/Group-ASM-Prog1 2 2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -176,6 +141,7 @@
       <workItem from="1695470631285" duration="1643000" />
       <workItem from="1695472300857" duration="4192000" />
       <workItem from="1695480657750" duration="23237000" />
+      <workItem from="1695529235234" duration="1300000" />
     </task>
     <servers />
   </component>
