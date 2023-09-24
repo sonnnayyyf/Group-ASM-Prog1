@@ -1,3 +1,17 @@
+/*
+  RMIT University Vietnam
+  Course: COSC2081 Programming 1
+  Semester: 2023B
+  Assessment: Group Assessment
+  Author: Group 30
+  ID: s3978145 - Phan Nguyen Viet Nhan
+s3962514-Duong Viet Hoang
+s3978450-Tran Hoang Son
+s3977767-Tran Nhat Minh
+
+  Acknowledgement:
+
+*/
 package View;
 
 import Controller.TripController;
@@ -119,7 +133,7 @@ public class PortManagerMenu implements Menu{
                                     break;
                                 }
                                 case 2: {
-                                    portController.removePort(containerID);
+                                    containerController.removeContainer(containerID);
                                     System.out.println("Container " + containerID + " has been removed");
                                 }
                             }
@@ -144,14 +158,13 @@ public class PortManagerMenu implements Menu{
         int choice;
         do {
             System.out.println("===== Vehicle Manager Menu =====");
-            System.out.println("1. Add A Vehicle");
-            System.out.println("2. View & Update Vehicle");
-            System.out.println("3. Load Container");
-            System.out.println("4. Unload Container");
-            System.out.println("5. Move Vehicle to Port");
-            System.out.println("6. Refuel Vehicle");
-            System.out.println("7. View average daily fuel consumption");
-            System.out.println("8. Return");
+            System.out.println("1. View & Update Vehicle");
+            System.out.println("2. Load Container");
+            System.out.println("3. Unload Container");
+            System.out.println("4. Move Vehicle to Port");
+            System.out.println("5. Refuel Vehicle");
+            System.out.println("6. View average daily fuel consumption");
+            System.out.println("7. Return");
             System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
@@ -160,49 +173,20 @@ public class PortManagerMenu implements Menu{
             switch (choice) {
                 case 1:
                     try {
-                        System.out.print("Enter vehicle name: ");
-                        String name = scanner.nextLine();
-                        System.out.print("Enter vehicle type (TRUCK/SHIP): ");
-                        String type = scanner.nextLine().toUpperCase();
-                        String truckType = "";
-                        if (type.equals("TRUCK")){
-                            System.out.print("Enter truck type (BASIC/REEFER/TANKER): ");
-                            truckType = scanner.nextLine().toUpperCase();
-                        }
-                        System.out.print("Enter carrying capacity: ");
-                        Double carryingCapacity = Double.parseDouble(scanner.nextLine());
-                        System.out.print("Enter fuel capacity: ");
-                        Double fuelCapacity = Double.parseDouble(scanner.nextLine());
-                        if (type.equals("TRUCK")){
-                            Truck truck = vehicleController.addTruck(name, carryingCapacity, fuelCapacity, truckType, port.getPortID());
-                            System.out.println("Truck "+truck.getVehicleID() + " has been added");
-                        } else if (type.equals("SHIP")){
-                            Ship ship = vehicleController.addShip(name, carryingCapacity, fuelCapacity, port.getPortID());
-                            System.out.println("Ship "+ship.getVehicleID() + " has been added");
-                        } else {
-                            System.out.println("Invalid arguments. Please try again");
-                        }
-                    } catch (Exception e){
-                        System.out.println(e.getMessage());
-                        System.out.println("An error occurred, please try again.");
-                    }
-                    break;
-                case 2:
-                    try {
                         this.previewVehicles();
                         System.out.print("Enter vehicle ID to view (tr-<number>/sh-<number>): ");
                         String id = scanner.nextLine();
                         System.out.println(vehicleController.getVehicleByID(id).get().getDetails());
-                        System.out.print("\n1. Edit \n2. Return \nDo you want to:");
+                        System.out.print("\n1. Edit \n2. Return \nDo you want to: ");
                         int input = Integer.parseInt(scanner.nextLine());
                         switch (input){
                             case 1:
                                 Vehicle vehicle = vehicleController.getVehicleByID(id).get();
-                                System.out.print("Enter vehicle name (Enter to skip):");
+                                System.out.print("Enter vehicle name (Enter to skip): ");
                                 String name = scanner.nextLine();
                                 if (!name.isEmpty()){vehicle.setName(name);};
                                 if (vehicle instanceof Truck){
-                                    System.out.print("Enter truck type (BASIC/REEFER/TANKER/Enter to skip):");
+                                    System.out.print("Enter truck type (BASIC/REEFER/TANKER/Enter to skip): ");
                                     String truckType = scanner.nextLine().toUpperCase();
                                     if (!truckType.isEmpty()){((Truck)vehicle).setType(Truck.TruckType.valueOf(truckType));}
                                 }
@@ -221,7 +205,7 @@ public class PortManagerMenu implements Menu{
                         System.out.println("An error occurred, please try again.");
                     }
                     break;
-                case 3:
+                case 2:
                     try {
                         this.previewVehicles();
                         System.out.print("Enter vehicle ID to load (tr-<number>/sh-<number>): ");
@@ -248,7 +232,7 @@ public class PortManagerMenu implements Menu{
                         System.out.println("An error occurred, please try again.");
                     }
                     break;
-                case 4:
+                case 3:
                     try {
                         this.previewVehicles();
                         System.out.print("Enter vehicle ID to unload (tr-<number>/sh-<number>): ");
@@ -278,7 +262,7 @@ public class PortManagerMenu implements Menu{
                         System.out.println("An error occurred, please try again.");
                     }
                     break;
-                case 5:
+                case 4:
                     try {
                         this.previewVehicles();
                         System.out.print("Enter vehicle ID to move (tr-<number>/sh-<number>): ");
@@ -290,7 +274,7 @@ public class PortManagerMenu implements Menu{
                             if (portController.contains(portID)){
                                 Vehicle vehicle = vehicleController.getVehicleByID(id).get();
                                 if (vehicle.canMoveToPort(port, portController.getPortByID(portID).get())){
-                                    System.out.println("Enter expected arrival date (dd-mm-yyyy): ");
+                                    System.out.print("Enter expected arrival date (dd-mm-yyyy): ");
                                     String arrivalDate = scanner.nextLine();
                                     vehicle.setCurrentPort(portID);
                                     tripController.createTrip(vehicle.getVehicleID(), new Date(), sdf.parse(arrivalDate), this.port.getPortID(), portID, Trip.TripStatus.ONGOING);
@@ -313,7 +297,7 @@ public class PortManagerMenu implements Menu{
                         System.out.println("An error occurred, please try again.");
                     }
                     break;
-                case 6:
+                case 5:
                     try {
                         this.previewVehicles();
                         System.out.print("Enter vehicle ID to refuel (v-<number>): ");
@@ -329,17 +313,17 @@ public class PortManagerMenu implements Menu{
                         System.out.println("An error occurred, please try again.");
                     }
                     break;
-                case 7:
+                case 6:
                     double stat = tripController.getFuelDailyConsumption(port.getPortID());
                     System.out.println("Daily fuel consumption: "+String.valueOf(stat)+ " liters");
                     break;
-                case 8:
+                case 7:
                     System.out.println("Returning...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 8);
+        } while (choice != 7);
     }
 
     public void tripMenu(){

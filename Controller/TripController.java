@@ -1,3 +1,17 @@
+/*
+  RMIT University Vietnam
+  Course: COSC2081 Programming 1
+  Semester: 2023B
+  Assessment: Group Assessment
+  Author: Group 30
+  ID: s3978145 - Phan Nguyen Viet Nhan
+s3962514-Duong Viet Hoang
+s3978450-Tran Hoang Son
+s3977767-Tran Nhat Minh
+
+  Acknowledgement:
+
+*/
 package Controller;
 
 import Model.Port;
@@ -28,6 +42,10 @@ public class TripController {
         listOfTrips.add(trip);
         this.updateTripHistory();
         this.saveTripsToFile();
+    }
+
+    public void removeTripByVehicleID(String id) {
+        listOfTrips.removeIf(trip -> trip.getVehicleID().equals(id));
     }
     public ArrayList<Trip> getTripsOfPort(String portID) {
         this.updateTripHistory();

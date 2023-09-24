@@ -1,9 +1,9 @@
 #ID,Name,Email,Address,Phone,Username,Password,Port,Role
 u-1,Alice Johnson,alice.johnson@gmail.com,14 Pine Street,0999991111,admin,21232f297a57a5a743894a0e4a801fc3,#,Admin
 u-2,Huynh,huynh,huynh,huynh,huynh,724432de08f74e1fb4dfb69fb4cc7ba8,p-2,Manager
-u-3,a,a,a,a,qwe,76d80224611fc919a5d54f0ff9fba446,p-5,Manager
 u-4,a,b,c,d,e,f,#,Admin
 u-5,Bruce Lee,brucelee@gmail.com,52 China Town,09840984645,brucelee,78d92ba9477ba6613c8be4bd2e8dd8c0,p-1,Manager
 u-6,Wang Ming,wangming@gmail.com,612 Hongkie,0948645128,wangming,994823de0f92037667367978cfcc9f97,p-2,Manager
 u-7,Justin Bieber,justinbieber@gmail.com,190 Berklee,0940854650,justin,53dd9c6005f3cdfc5a69c5c07388016d,p-3,Manager
 u-8,Viet Nhan,vietnhan@gmail.com,279 Kim Ma,04984085654,nhan,bb4e31f2d20f8e7f88e2b8459263657f,p-4,Manager
+au-9,Kenny Schrub,kennys@gmail.com,214 France,098489546,kennys,d7961f634f19442dcc217e995fe27051,p-5,Manager

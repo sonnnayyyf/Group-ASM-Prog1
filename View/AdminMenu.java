@@ -1,3 +1,17 @@
+/*
+  RMIT University Vietnam
+  Course: COSC2081 Programming 1
+  Semester: 2023B
+  Assessment: Group Assessment
+  Author: Group 30
+  ID: s3978145 - Phan Nguyen Viet Nhan
+s3962514-Duong Viet Hoang
+s3978450-Tran Hoang Son
+s3977767-Tran Nhat Minh
+
+  Acknowledgement:
+
+*/
 package View;
 
 import Controller.*;
@@ -224,11 +238,11 @@ public class AdminMenu implements Menu{
                     break;
                 case 2:
                     List<Container> containers = containerController.getAllContainers();
-                    System.out.println("DRY_STORAGE: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.DRY_STORAGE)).count());
-                    System.out.println("OPEN_TOP: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.OPEN_TOP)).count());
-                    System.out.println("OPEN_SIDE: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.OPEN_SIDE)).count());
-                    System.out.println("REFRIGERATED: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.REFRIGERATED)).count());
-                    System.out.println("LIQUID: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.LIQUID)).count());
+                    System.out.println("DRY_STORAGE: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.DRY_STORAGE)).mapToDouble(Container::getWeight).sum());
+                    System.out.println("OPEN_TOP: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.OPEN_TOP)).mapToDouble(Container::getWeight).sum());
+                    System.out.println("OPEN_SIDE: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.OPEN_SIDE)).mapToDouble(Container::getWeight).sum());
+                    System.out.println("REFRIGERATED: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.REFRIGERATED)).mapToDouble(Container::getWeight).sum());
+                    System.out.println("LIQUID: "+containers.stream().filter(container -> container.getType().equals(Container.ContainerType.LIQUID)).mapToDouble(Container::getWeight).sum());
                     break;
                 case 3:
                     System.out.println("Returning...");
@@ -244,7 +258,8 @@ public class AdminMenu implements Menu{
         do {
             System.out.println("===== Vehicle Manager Menu =====");
             System.out.println("1. View & Update or Remove Vehicle");
-            System.out.println("2. Return");
+            System.out.println("2. Add Vehicle");
+            System.out.println("3. Return");
             System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
@@ -280,6 +295,7 @@ public class AdminMenu implements Menu{
                                 break;
                             case 2: {
                                 vehicleController.removeVehicle(id);
+                                tripController.removeTripByVehicleID(id);
                                 System.out.println("Vehicle " + id + " has been removed");
                             }
                             case 3:
@@ -290,10 +306,42 @@ public class AdminMenu implements Menu{
                     }
                     break;
                 case 2:
+                    try {
+                        System.out.print("Enter vehicle name: ");
+                        String name = scanner.nextLine();
+                        System.out.print("Enter vehicle type (TRUCK/SHIP): ");
+                        String type = scanner.nextLine().toUpperCase();
+                        String truckType = "";
+                        if (type.equals("TRUCK")){
+                            System.out.print("Enter truck type (BASIC/REEFER/TANKER): ");
+                            truckType = scanner.nextLine().toUpperCase();
+                        }
+                        System.out.print("Enter carrying capacity: ");
+                        Double carryingCapacity = Double.parseDouble(scanner.nextLine());
+                        System.out.print("Enter fuel capacity: ");
+                        Double fuelCapacity = Double.parseDouble(scanner.nextLine());
+                        this.displayPortPreview();
+                        System.out.print("Enter a port for the vehicle: ");
+                        String portID = scanner.nextLine();
+                        if (type.equals("TRUCK")){
+                            Truck truck = vehicleController.addTruck(name, carryingCapacity, fuelCapacity, truckType, portID);
+                            System.out.println("Truck "+truck.getVehicleID() + " has been added");
+                        } else if (type.equals("SHIP")){
+                            Ship ship = vehicleController.addShip(name, carryingCapacity, fuelCapacity, portID);
+                            System.out.println("Truck "+ship.getVehicleID() + " has been added");
+                        } else {
+                            System.out.println("Invalid arguments. Please try again");
+                        }
+                    } catch (Exception e){
+                        System.out.println(e.getMessage());
+                        System.out.println("An error occurred, please try again.");
+                    }
+                    break;
+                case 3:
                     System.out.println("Returning...");
                     break;
             }
-        } while (choice != 2);
+        } while (choice != 3);
     }
 
     public void tripMenu(){
